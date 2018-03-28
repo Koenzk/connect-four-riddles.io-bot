@@ -1,10 +1,23 @@
 // c4bot.cpp
 // Aswin van Woudenberg
+// Koen Lukkien
 
 #include "c4bot.h"
+#include "MonteCarloSolver.h"
 
 #include <iostream>
 #include <sstream>
+
+MonteCarloSolver solver;
+
+//struct board {
+//    char holes[6*7];
+//} board;
+//
+void C4Bot::boardSet(board *b, int col, int row, int player) {
+//    if (col < 0 || col > 6 || row < 0 || row > 5) return;
+    b->holes[(5*7)+col-(row*7)] = player;
+}
 
 void C4Bot::run() {
     std::string line;
@@ -26,29 +39,34 @@ void C4Bot::move(int timeout) {
     // Do something more intelligent here instead of returning a random move
     std::vector<Move> moves = getMoves(state);
     std::cout << "place_disc " << *select_randomly(moves.begin(), moves.end()) << std::endl;
+
+    std::cout << "place_disc " << solver.makeMove(board, your_botid + 1) << std::endl;
 }
 
 void C4Bot::update(std::string &key, std::string &value) {
     if (key == "round") {
         round = std::stoi(value);
     } else if (key == "field") {
-        int row = 0;
-        int col = 0;
-        std::vector<std::string> fields = split(value, ',');
-        for (std::string &field : fields) {
-            if (field == "0") {
-                state[row][col] = Player::X;
-            } else if (field == "1") {
-                state[row][col] = Player::O;
-            } else {
-                state[row][col] = Player::None;
-            }
-            col++;
-            if (col == 7) {
-                row++;
-                col = 0;
-            }
-        }
+//        int row = 0;
+//        int col = 0;
+//        std::vector<std::string> fields =
+
+        fields = split(value, ',');
+
+//        for (std::string &field : fields) {
+//            if (field == "0") {
+//                state[row][col] = Player::X;
+//            } else if (field == "1") {
+//                state[row][col] = Player::O;
+//            } else {
+//                state[row][col] = Player::None;
+//            }
+//            col++;
+//            if (col == 7) {
+//                row++;
+//                col = 0;
+//            }
+//        }
     }
 }
 

@@ -1,13 +1,14 @@
 // c4bot.h
 // Aswin van Woudenberg
+// Koen Lukkien
 
 #ifndef C4BOT_H
 #define C4BOT_H
 
+#include "c4.h"
+
 #include <string>
 #include <vector>
-
-#include "c4.h"
 
 class C4Bot {
     int timebank;
@@ -20,6 +21,14 @@ class C4Bot {
 
     int round;
     State state = { { { { Player::None } } } };
+
+    std::vector<std::string> fields;
+
+    struct board {
+        char holes[6*7];
+    } board;
+
+    void boardSet(board *b, int col, int row, int player);
 
     std::vector<std::string> split(const std::string &s, char delim);
     void setting(std::string &key, std::string &value);
