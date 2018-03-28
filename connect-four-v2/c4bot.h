@@ -20,15 +20,24 @@ class C4Bot {
     int field_rows;
 
     int round;
-    State state = { { { { Player::None } } } };
-
-    std::vector<std::string> fields;
 
     struct board {
         char holes[6*7];
     } board;
 
-    void boardSet(board *b, int col, int row, int player);
+    int c4Get(board *b, int col, int level);
+    void c4Set(board *b, int col, int level, int value);
+    void c4Clean(board *b);
+    void c4Copy(board *dst, board *src);
+    int c4ColIsFull(board *b, int col);
+    int c4Drop(board *b, int col, int value);
+    void c4Print(board *b);
+    int c4GetWinner(board *b);
+    int c4RandomGame(board *b, int tomove);
+    int c4SuggestMove(board *b, int tomove);
+
+
+    std::vector<std::string> fields;
 
     std::vector<std::string> split(const std::string &s, char delim);
     void setting(std::string &key, std::string &value);
