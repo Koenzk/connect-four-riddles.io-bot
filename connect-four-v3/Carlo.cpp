@@ -1,8 +1,9 @@
 //
-// Created by koenzk on 3-4-18.
+// Created by koenzk on 27-3-18.
 //
 
 #include "Carlo.h"
+
 //  State:
 //  0 .......
 //  1 .......
@@ -36,7 +37,7 @@ bool Carlo::dropDisc(State &s, int col, Player player) {
 }
 
 Player Carlo::randomGame(State &s, Player onTurn) {
-    for (int i=0; i < 43; i++) { // TODO: Can much more efficient
+    for (int i=0; i < 500; i++) { // TODO: Can much more efficient
         if (dropDisc(s, rand()%7, onTurn)) {
             onTurn = (onTurn == Player::O) ? Player::X : Player::O;
 
@@ -52,7 +53,7 @@ int Carlo::suggestMove(const State &s, Player onTurn) {
 
     int best = -1;
     double best_ratio = 0;
-    int games_per_move = 25000; // TODO: Find value as high as possible
+    int games_per_move = 1000; // TODO: Find value as high as possible
 
     for (int move = 0; move < 7; move++) {
         if (colIsFull(result, move)) continue; // No valid move.
