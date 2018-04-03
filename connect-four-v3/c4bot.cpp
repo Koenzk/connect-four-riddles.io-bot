@@ -2,7 +2,7 @@
 // Aswin van Woudenberg
 
 #include "c4bot.h"
-#include "Solver.h"
+#include "Carlo.h"
 
 #include <iostream>
 #include <sstream>
@@ -25,17 +25,8 @@ void C4Bot::run() {
 }
 
 void C4Bot::move(int timeout) {
-    Player player;
-
-    if (your_botid == 0)
-    {
-        player = Player::X;
-    } else {
-        player = Player::O;
-    }
-
-    Solver solver;
-    std::cout << "place_disc " << solver.c4SuggestMove(state, player) << std::endl;
+    Carlo solver;
+    std::cout << "place_disc " << solver.suggestMove(state, getCurrentPlayer(state)) << std::endl;
 }
 
 void C4Bot::update(std::string &key, std::string &value) {
