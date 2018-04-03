@@ -4,7 +4,6 @@
 #include "c4bot.h"
 #include "Carlo.h"
 
-#include <iostream>
 #include <sstream>
 #include <cstring>
 
@@ -25,8 +24,14 @@ void C4Bot::run() {
 }
 
 void C4Bot::move(int timeout) {
+//    clock_t start = clock();
+
     Carlo solver;
     std::cout << "place_disc " << solver.suggestMove(state, getCurrentPlayer(state)) << std::endl;
+
+//    clock_t stop = clock();
+//    double elapsed = (double)(stop - start) * 1000.0 / CLOCKS_PER_SEC;
+//    std::cout << "Time elapsed in ms: " << elapsed << std::endl;
 }
 
 void C4Bot::update(std::string &key, std::string &value) {

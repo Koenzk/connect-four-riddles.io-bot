@@ -3,6 +3,14 @@
 //
 
 #include "Carlo.h"
+//  State:
+//  0 .......
+//  1 .......
+//  2 .......
+//  3 .......
+//  4 .......
+//  5 .......
+//    0123456
 
 Player Carlo::getDisc(State &s, int col, int row) {
     return s[row][col];
@@ -13,12 +21,12 @@ void Carlo::setDisc(State &s, int col, int row, Player player) {
 }
 
 bool Carlo::colIsFull(State &s, int col) {
-    return getDisc(s, col, 5) != Player::None;
+    return getDisc(s, col, 0) != Player::None;
 }
 
 bool Carlo::dropDisc(State &s, int col, Player player) {
     if (colIsFull(s, col)) return false;
-    for (int row = 0; row < 6; row++) {
+    for (int row = 5; row >= 0; row--) {
         if (getDisc(s, col, row) == Player::None) {
             setDisc(s, col, row, player);
             break;
@@ -28,14 +36,13 @@ bool Carlo::dropDisc(State &s, int col, Player player) {
 }
 
 Player Carlo::randomGame(State &s, Player onTurn) {
-
-    for (int i=0; i < 43; i++) {
+    for (int i=0; i < 43; i++) { // TODO: Can much more efficient
         if (dropDisc(s, rand()%7, onTurn)) {
             onTurn = (onTurn == Player::O) ? Player::X : Player::O;
-        }
 
-        Player winner = getWinner(s);
-        if (winner != Player::None) return winner;
+            Player winner = getWinner(s);
+            if (winner != Player::None) return winner;
+        }
     }
     return Player::None;
 }
@@ -45,7 +52,7 @@ int Carlo::suggestMove(const State &s, Player onTurn) {
 
     int best = -1;
     double best_ratio = 0;
-    int games_per_move = 1000; // TODO: Find perfect value
+    int games_per_move = 25000; // TODO: Find value as high as possible
 
     for (int move = 0; move < 7; move++) {
         if (colIsFull(result, move)) continue; // No valid move.
