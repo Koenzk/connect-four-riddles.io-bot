@@ -1,6 +1,0 @@
-cmake_minimum_required(VERSION 3.9)
-project(connect_four)
-
-set(CMAKE_CXX_STANDARD 11)
-
-add_executable(connect_four main.cpp c4bot.cpp c4bot.h c4.cpp c4.h node.cpp node.h)
