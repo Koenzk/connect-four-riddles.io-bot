@@ -53,7 +53,7 @@ int Carlo::suggestMove(const State &s, Player onTurn) {
 
     int best = -1;
     double best_ratio = 0;
-    int games_per_move = 1000; // TODO: Find value as high as possible
+    int games_per_move = 20000; // TODO: Find value as high as possible
 
     for (int move = 0; move < 7; move++) {
         if (colIsFull(result, move)) continue; // No valid move.
